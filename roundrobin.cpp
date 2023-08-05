@@ -53,9 +53,7 @@ void printaddress(Process processes[], int n)
                 "----------------------\n";
         cout << "Next Resource Address: \n"
              << &processes[i + 1] << endl;
-        cout << "--------------------------------------------------------------------"
-                "----------------------\n";
-    }
+        }
 }
 void calculateTurnaroundTime(Process processes[], int n)
 {
