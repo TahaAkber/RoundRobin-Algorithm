@@ -41,6 +41,22 @@ void calculateTimes(Process processes[], int n, int quantum)
         }
     }
 }
+void printaddress(Process processes[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        cout << "--------------------------------------------------------------------"
+                "----------------------\n";
+        cout << "Current Resource Address: \n"
+             << &processes[i] << endl;
+        cout << "--------------------------------------------------------------------"
+                "----------------------\n";
+        cout << "Next Resource Address: \n"
+             << &processes[i + 1] << endl;
+        cout << "--------------------------------------------------------------------"
+                "----------------------\n";
+    }
+}
 void calculateTurnaroundTime(Process processes[], int n)
 {
     for (int i = 0; i < n; i++)
@@ -48,7 +64,7 @@ void calculateTurnaroundTime(Process processes[], int n)
             processes[i].completionTime - processes[i].arrivalTime;
 }
 
-void claculateWaitingTime(Process processes[], int n)
+void calculateWaitingTime(Process processes[], int n)
 {
     for (int i = 0; i < n; i++)
         processes[i].waitingTime =
@@ -60,7 +76,7 @@ void printTable(Process processes[], int n)
     cout << "--------------------------------------------------------------------"
             "----------------------\n";
     cout << "| Process | Arrival Time | Execution Time | Completion Time | "
-            "Turnaround Time | Waiting Time |\n";
+            "Turnaround Time | Waiting Time \n";
     cout << "--------------------------------------------------------------------"
             "----------------------\n";
     for (int i = 0; i < n; i++)
@@ -69,7 +85,7 @@ void printTable(Process processes[], int n)
              << processes[i].arrivalTime << "      |     " << processes[i].executionTime
              << "     |        " << processes[i].completionTime
              << "        |        " << processes[i].turnaroundTime
-             << "         |      " << processes[i].waitingTime << "      |\n";
+             << "         |      " << processes[i].waitingTime << " |\n";
     }
     cout << "--------------------------------------------------------------------"
             "----------------------\n";
@@ -79,7 +95,7 @@ int main()
     int n, quantum;
     cout << "Enter The Number of Process: \n";
     cin >> n;
-    cout << "Enter The Time Quantum: \n";
+    cout << "Enter The  Quantum Size: \n";
     cin >> quantum;
 
     Process *processes = new Process[n];
@@ -96,10 +112,10 @@ int main()
 
     calculateTimes(processes, n, quantum);
     calculateTurnaroundTime(processes, n);
-    claculateWaitingTime(processes, n);
-
+    calculateWaitingTime(processes, n);
     cout << "\nRound Robin Scheduling Results:\n";
     printTable(processes, n);
+    printaddress(processes, n);
 
     return 0;
 }
