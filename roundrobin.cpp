@@ -2,13 +2,15 @@
 using namespace std;
 struct Process
 {
-    int processid;
-    int arrivalTime;
-    int executionTime;
-    int completionTime;
-    int turnaroundTime;
-    int waitingTime;
+    float processid;
+    float arrivalTime;
+    float executionTime;
+    float completionTime;
+    float turnaroundTime;
+    float waitingTime;
+    float utilization;
 };
+
 void calculateTimes(Process processes[], int n, int quantum)
 {
     int *remainingTime = new int[n];
@@ -41,6 +43,7 @@ void calculateTimes(Process processes[], int n, int quantum)
         }
     }
 }
+
 void printaddress(Process processes[], int n)
 {
     for (int i = 0; i < n; i++)
@@ -53,7 +56,7 @@ void printaddress(Process processes[], int n)
                 "----------------------\n";
         cout << "Next Resource Address: \n"
              << &processes[i + 1] << endl;
-        }
+    }
 }
 void calculateTurnaroundTime(Process processes[], int n)
 {
@@ -68,13 +71,19 @@ void calculateWaitingTime(Process processes[], int n)
         processes[i].waitingTime =
             processes[i].turnaroundTime - processes[i].executionTime;
 }
-
+void calculateutilization(Process processes[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        processes[i].utilization = (processes[i].executionTime / processes[i].completionTime) * 100;
+    }
+}
 void printTable(Process processes[], int n)
 {
     cout << "--------------------------------------------------------------------"
             "----------------------\n";
     cout << "| Process | Arrival Time | Execution Time | Completion Time | "
-            "Turnaround Time | Waiting Time \n";
+            "Turnaround Time | Waiting Time | Utilization Time\n";
     cout << "--------------------------------------------------------------------"
             "----------------------\n";
     for (int i = 0; i < n; i++)
@@ -83,7 +92,9 @@ void printTable(Process processes[], int n)
              << processes[i].arrivalTime << "      |     " << processes[i].executionTime
              << "     |        " << processes[i].completionTime
              << "        |        " << processes[i].turnaroundTime
-             << "         |      " << processes[i].waitingTime << " |\n";
+             << "         |      " << processes[i].waitingTime << "            |   " << processes[i].utilization << " "
+             << "%"
+             << " |\n";
     }
     cout << "--------------------------------------------------------------------"
             "----------------------\n";
@@ -112,8 +123,8 @@ int main()
     calculateTurnaroundTime(processes, n);
     calculateWaitingTime(processes, n);
     cout << "\nRound Robin Scheduling Results:\n";
+    calculateutilization(processes, n);
     printTable(processes, n);
     printaddress(processes, n);
-
     return 0;
 }
