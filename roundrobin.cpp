@@ -1,7 +1,8 @@
 #include <iostream>
 using namespace std;
-struct Process
+class Process
 {
+public:
     float processid;
     float arrivalTime;
     float executionTime;
@@ -10,7 +11,6 @@ struct Process
     float waitingTime;
     float utilization;
 };
-
 void calculateTimes(Process processes[], int n, int quantum)
 {
     int *remainingTime = new int[n];
@@ -73,9 +73,13 @@ void calculateWaitingTime(Process processes[], int n)
             processes[i].turnaroundTime - processes[i].executionTime;
 }
 void calculateutilization(Process processes[], int n)
+<<<<<<< Updated upstream
 {
     int sum;
     int sum2;
+=======
+{ // cpu utilization factors: idletime, throughput etc
+>>>>>>> Stashed changes
     for (int i = 0; i < n; i++)
     {
         processes[i].utilization = (processes[i].executionTime / processes[i].completionTime) * 100;
