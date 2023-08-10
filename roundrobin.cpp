@@ -51,7 +51,8 @@ void printaddress(Process processes[], int n)
         cout << "--------------------------------------------------------------------"
                 "----------------------\n";
         cout << "Current Resource Address: \n"
-             << &processes[i] << endl;
+             << "Process ID "
+             << processes[i].processid << " : " << &processes[i] << endl;
         cout << "--------------------------------------------------------------------"
                 "----------------------\n";
         cout << "Next Resource Address: \n"
@@ -73,6 +74,8 @@ void calculateWaitingTime(Process processes[], int n)
 }
 void calculateutilization(Process processes[], int n)
 {
+    int sum;
+    int sum2;
     for (int i = 0; i < n; i++)
     {
         processes[i].utilization = (processes[i].executionTime / processes[i].completionTime) * 100;
